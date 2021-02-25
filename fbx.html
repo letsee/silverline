@@ -1,71 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Letsee WebAR Demo</title>
-
-	<!-- Adding Letsee WebAR SDK -->
-	<script src="https://cdn.letsee.io/webar/letsee-0.9.18.min.js"></script>
-
-	<!-- THREE.js must be supplied -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
-
-	<!-- FBXLoader library and  external library Inflate.min.js required for FBXLoader -->
-	<script src="js/loaders/FBXLoader.js"></script>
-	<script src="js/inflate.min.js"></script>
-
-	<!-- Adding configuration .JSON file.
-		1. The .JSON file MUST BE in the same folder hierarchy
-		with your .html and planar image.
-		2. media="place" is required. -->
-	<style  media="place" type="text/css">
-		#container {
-			-letsee-target: uri('letsee-marker.json');
-		}
-	</style>
+  <meta charset="UTF-8">
+  <title>Silverline - FBXLoader</title>
+  
+  <!-- Letsee SDK -->
+  <script src="https://developer.letsee.io/api/webar?key=95b3e0c2fd6f8a7539e87b8e9ea7ec33b45ce405e93d9b48a090ddee58d6ec55"></script>
+  
+  <!-- Three.js -->
+  <script src="https://unpkg.com/three@0.124.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.124.0/examples/js/loaders/RGBELoader.js"></script>
+  <script src="https://unpkg.com/three@0.124.0/examples/js/loaders/FBXLoader.js"></script>
+  <script src="https://unpkg.com/three@0.124.0/examples/js/libs/inflate.min.js"></script>
+  
+  <!-- Client code -->
+  <script src="js/fbx-loader.js"></script>
 </head>
 <body>
-	<script>
-
-		// Loading the Letsee WebAR Engine
-		const config = {
-			"appKey": "f74997f672f2e251be84a05d96cb45a83ce6c3551b7e0c64b207b63a87c4a306",   // Replace the app key here with your own app key
-			"trackerType": "IMAGE"      // For planar image tracking, trackerType should be IMAGE
-		};
-		const letsee = new Letsee(config);
-
-		// Engine tracking event
-		letsee.onLoad(() => init());
-
-		// Initialize 3D world
-		let mixer;
-		function init() {
-
-			// Using renderer, camera and scene from Engine.
-			const renderer = letsee.threeRenderer;
-			const camera = renderer.camera;
-			const scene = renderer.scene;
-			let light;
-
-			// Adding lights
-			light = new THREE.DirectionalLight(0xffffff);
-			light.position.set(0, -95, 120);
-			scene.add(light);
-
-			// Loading model
-			const loader = new THREE.FBXLoader();
-			loader.load('models/fbx/Hood1.fbx', function (object) {
-
-				// Play animation if needed
-				mixer = new THREE.AnimationMixer(object);
-				const action = mixer.clipAction(object.animations[0]);
-				action.play();
-				object.position.y = - 95;
-
-				// After loading model, add it into the planar image target
-				renderer.addObjectToEntity('letsee-marker.json', object)
-			});
-		};
-	</script>
+<script>
+  
+  let scene, camera, renderer;
+  letsee.ready(() => {
+    letsee.start();
+    
+    letsee.addTHREE(THREE).then(obj => {
+      camera = obj.camera;
+      renderer = obj.renderer;
+      scene = obj.scene;
+      
+      initWorld();
+      
+    });
+    
+    letsee.onTrackStart(() => {
+    });
+    letsee.onTrackMove(() => {
+    });
+    letsee.onTrackEnd(() => {
+    });
+    
+  });
+  letsee.init();
+  
+  // Prevent user zoom in/out the webpage
+  document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+  });
+</script>
 </body>
 </html>
