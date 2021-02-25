@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Letsee WebAR Silverline Demo</title>
+	<script src="https://cdn.letsee.io/webar/letsee-0.9.18.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
+	<script src="js/loaders/DDSLoader.js"></script>
+	<script src="js/loaders/MTLLoader.js"></script>
+	<script src="js/loaders/OBJLoader.js"></script>
+	<style media="place" type="text/css">
+		#container {
+			-letsee-target: uri('letsee-marker.json');
+		}
+	</style>
+</head>
+<body>
+<script>
+	const config = {
+		"appKey": "f74997f672f2e251be84a05d96cb45a83ce6c3551b7e0c64b207b63a87c4a306",   // Replace the app key here with your own app key
+		"trackerType": "IMAGE"      // For planar image tracking, trackerType should be IMAGE
+	};
+	const letsee = new Letsee(config);
+
+	letsee.onLoad(() => init());
+
+	function init() {
+		let object;
+
+		// Using renderer, camera and scene from Engine.
+		const renderer = letsee.threeRenderer;
+		const scene = renderer.scene;
+		const camera = renderer.camera;
+
+		// Adding lights
+		const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+		scene.add( ambientLight );
+		const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+		camera.add( pointLight );
+		scene.add( camera );
+
+		var onProgress = function ( xhr ) {
+			if ( xhr.lengthComputable ) {
+				var percentComplete = xhr.loaded / xhr.total * 100;
+				console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
+			}
+		};
+		var onError = function () { };
+		THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+		new THREE.MTLLoader()
+				.setPath( 'models/obj/' )
+				.load( 'Hood1_90.mtl', function ( materials ) {
+					materials.preload();
+					new THREE.OBJLoader()
+							.setMaterials( materials )
+							.setPath( 'models/obj/' )
+							.load( 'Hood1_90.obj', function ( object ) {
+								object.position.y = - 95;
+								renderer.addObjectToEntity('letsee-marker.json', object)
+							}, onProgress, onError );
+				} );
+	}
+</script>
+</body>
+</html>

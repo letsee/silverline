@@ -1,0 +1,78 @@
+# Blender MTL File: 'Hood1.blend'
+# Material Count: 7
+
+newmtl Black_LCD
+Ns 728.999998
+Ka 1.000000 1.000000 1.000000
+Kd 0.008384 0.008384 0.008384
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Brushed_Alu_1
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump TexturesCom_Metal_AluminumBrushed2_1K_normal.tif
+map_Kd TexturesCom_Metal_AluminumBrushed2_1K_albedo.tif
+map_Ns TexturesCom_Metal_AluminumBrushed2_1K_roughness.tif
+refl TexturesCom_Metal_AluminumBrushed2_1K_metallic.tif
+
+newmtl Emission
+Ns 323.999994
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Glass
+Ns 728.999998
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Grey
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl LCD_Symbols
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.014236 0.013154 0.048674
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Mesh
+Ns 575.999996
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump Metal_Mesh_001_NORM.jpg
+map_Kd Metal_Mesh_001_COLOR.jpg
