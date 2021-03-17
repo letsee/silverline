@@ -64,7 +64,7 @@ function initScene() {
  * Proceed model.
  */
 function proceedModel() {
-  letsee.addTarget('https://s-developer.letsee.io/api-tm/target-manager/target-uid/6045f353358ef31bd651db0b').then(entity => {
+  letsee.addTarget('https://developer.letsee.io/api-tm/target-manager/target-uid/6051de97b30426a32a7be172').then(entity => {
     toystory = entity;
 
     // 1. Load model
